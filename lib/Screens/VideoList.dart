@@ -28,8 +28,7 @@ class _VideoListState extends State<VideoList> {
         "https://www.youtube.com/watch?v=NeQzY6_Eqxk"),
     VideoModel("For Bigger Joyrides", "images/ForBiggerJoyrides.jpg",
         "https://www.youtube.com/watch?v=TpLhLBhFTag"),
-    VideoModel("For Bigger Meltdowns", "images/ForBiggerMeltdowns.jpg",
-        "https://youtu.be/oW-txzEu6rg"),
+
   ];
 
   @override
@@ -56,12 +55,9 @@ class _VideoListState extends State<VideoList> {
                             videoUrl: list[index].videoUrl,
                           )));
             },
-            child: Card(
-              child: Container(
-                margin: EdgeInsets.all(10),
-                height: 300,
-                child: youTubePlayer(index),
-              ),
+            child: Container(
+              height: 200,
+              child: youTubePlayer(index),
             ),
           );
         });

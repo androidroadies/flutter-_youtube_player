@@ -22,22 +22,32 @@ class _VideoScreenState extends State<VideoScreen> {
   @override
   void initState() {
 
+    initController();
+
     super.initState();
 
-    _controller = YoutubePlayerController(
-      initialVideoId: getVideoId(widget.videoUrl),
-      flags: const YoutubePlayerFlags(
-        mute: false,
-        autoPlay: false,
-        disableDragSeek: false,
-        loop: false,
-        isLive: false,
-        forceHD: false,
-        enableCaption: true,
-      ),
-    )..addListener(listener);
-    _videoMetaData = const YoutubeMetaData();
-    _playerState = PlayerState.unknown;
+
+  }
+
+
+  initController(){
+    setState((){
+      _controller = YoutubePlayerController(
+        initialVideoId: getVideoId(widget.videoUrl),
+        flags:  YoutubePlayerFlags(
+          mute: false,
+          autoPlay: true,
+          disableDragSeek: false,
+          loop: false,
+          isLive: false,
+          forceHD: false,
+          enableCaption: true,
+
+        ),
+      )..addListener(listener);
+      _videoMetaData = const YoutubeMetaData();
+      _playerState = PlayerState.unknown;
+    });
   }
 
   void listener() {
@@ -97,6 +107,18 @@ class _VideoScreenState extends State<VideoScreen> {
       controller: _controller,
       showVideoProgressIndicator: true,
       progressIndicatorColor: Colors.blue,
+      onReady: () {
+      setState((){
+        _isPlayerReady = true;
+      });
+      },
+      onEnded: (data) {
+
+        setState((){
+          _isPlayerReady = false;
+
+        });
+      },
     );
   }
 }
